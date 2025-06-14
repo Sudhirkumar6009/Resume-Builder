@@ -6,7 +6,7 @@ Where we focuses to distribution client and server directory separation for bett
 
 ## Project Structure
 `./server` consists proper backend infrastructure (built with MongoDB Atllas, Node + express.js)
-./client consists frontend structure (built with React.js Tech)
+`./client` consists frontend structure (built with React.js Tech)
 
 ---
 
@@ -16,7 +16,7 @@ Follow these steps to run the project locally.
 
 ---
 
-### ✅ Prerequisites
+### Prerequisites
 
 - Node.js (v14 or higher)
 - npm (Node Package Manager)
@@ -24,48 +24,54 @@ Follow these steps to run the project locally.
 
 ---
 
-## 📦 Installation
+## Overview of project
 
 1. **Clone the repository**
 ```cmd
-
 git clone https://github.com/Sudhirkumar6009/Resume-Builder.git
-
+```
+2. **put cmd in root directory. Then create node modules for both directories `./server` and `./client`**
+```cmd
 cd ./Resume-Builder
 
 cd ./server
 npm install
 
+
 cd ../
 
 cd ./client
 npm install
+```
 
-🧑‍💻 Running the Project
+3. **Running the Project**
 Use two separate terminals to run the frontend and backend.
 
-🖥️ Start Backend (Server)
-
+3.1. Start Backend (Server)
+```cmd
 cd ./server
 npm nodemon
+```
 Backend will run at port 5000
 (If you don't have nodemon: npm install -g nodemon)
 
-cd ../
-(come agian to root directory)
+`cd ../` (come agian to root directory)
 
-🌐 Start Frontend (Client)
-
+3.2. Start Frontend (Client)
+```cmd
 cd ./client
 npm run dev
+```
 Frontend will run at: http://localhost:8080
+(We can also put this as environment variable for proper pratice)
 
-🔐 Environment Variables
-Create .env in server/ with:
-
-env
+### Environment Variables
+Created .env in `./server` with:
+```cmd
 MONGO_URI=mongodb+srv://sudhirkumarkiller1011:0Q0eIu7IkUMfgQcr@resumebuilder.ymfjyyh.mongodb.net/?retryWrites=true&w=majority&appName=ResumeBuilder
+```
 
-📬 Contact
-For questions or issues:
-📧 sudhir.kuchara@example.com
+### Contact
+For questions or issues,
+MAIL ME : sudhir.kuchara@example.com :)
+
