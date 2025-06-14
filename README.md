@@ -63,7 +63,7 @@ cd ./client
 npm run dev
 ```
 Frontend will run at: `http://localhost:8080`
-(We can also put this as environment variable for proper pratice)
+(Future Enhancement Idea : We can also put this as environment variable for proper pratice)
 
 ### Environment Variables
 Created .env in `./server` with:
