@@ -62,7 +62,7 @@ Backend will run at port 5000
 cd ./client
 npm run dev
 ```
-Frontend will run at: http://localhost:8080
+Frontend will run at: `http://localhost:8080`
 (We can also put this as environment variable for proper pratice)
 
 ### Environment Variables
@@ -73,5 +73,5 @@ MONGO_URI=mongodb+srv://sudhirkumarkiller1011:0Q0eIu7IkUMfgQcr@resumebuilder.ymf
 
 ### Contact
 For questions or issues,
-MAIL ME : sudhir.kuchara@example.com :)
+MAIL ME : sudhir.kuchara@gmail.com :)
 
