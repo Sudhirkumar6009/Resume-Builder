@@ -788,7 +788,30 @@ export const ResumeBuilder = () => {
   const handleDownloadPDF = async () => {
     try {
       const element = document.getElementById('resume-preview');
-      if (!element) return;
+      if (!element) {
+        toast.error('Resume preview not found.');
+        return;
+      }
+
+      // Save original styles
+      const originalTransform = element.style.transform;
+      const originalPosition = element.style.position;
+      const originalWidth = element.style.width;
+      const originalHeight = element.style.height;
+      const originalTop = element.style.top;
+      const originalLeft = element.style.left;
+      const originalRight = element.style.right;
+      const originalBottom = element.style.bottom;
+
+      // Remove scaling and positioning for PDF rendering
+      element.style.transform = 'scale(1)';
+      element.style.position = 'static';
+      element.style.width = '794px'; // A4 width in px at 96dpi
+      element.style.height = '1123px'; // A4 height in px at 96dpi
+      element.style.top = '';
+      element.style.left = '';
+      element.style.right = '';
+      element.style.bottom = '';
 
       const html2pdf = (await import('html2pdf.js')).default;
 
@@ -797,10 +820,21 @@ export const ResumeBuilder = () => {
         filename: `${resumeData.personalInfo.fullName || 'Resume'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' },
       };
 
-      html2pdf().set(opt).from(element).save();
+      await html2pdf().set(opt).from(element).save();
+
+      // Restore original styles
+      element.style.transform = originalTransform;
+      element.style.position = originalPosition;
+      element.style.width = originalWidth;
+      element.style.height = originalHeight;
+      element.style.top = originalTop;
+      element.style.left = originalLeft;
+      element.style.right = originalRight;
+      element.style.bottom = originalBottom;
+
       toast.success('PDF downloaded successfully!');
     } catch (error) {
       toast.error('Failed to download PDF. Please try again.');
@@ -849,7 +883,7 @@ export const ResumeBuilder = () => {
   const handleSaveToServer = async () => {
     try {
       const profileData = mapResumeDataToProfile(resumeData, selectedTemplate);
-      await axios.post('http://localhost:5000/api/profile/save', profileData);
+      await axios.post(`http://localhost:5000/api/profile/save`, profileData);
       toast.success('Resume saved to server!');
     } catch (error) {
       toast.error('Failed to save resume to server.');
@@ -957,12 +991,42 @@ export const ResumeBuilder = () => {
             </div>
           )}
 
-          {/* Preview Section */}
           <div
             className={`bg-white rounded-xl shadow-lg p-6 ${
               isFullScreen ? '' : 'sticky top-8'
             }`}
+            style={{
+              position: isFullScreen ? 'fixed' : undefined,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: isFullScreen ? 50 : undefined,
+              width: isFullScreen ? '100vw' : undefined,
+              height: isFullScreen ? '100vh' : undefined,
+              padding: isFullScreen ? 0 : undefined,
+            }}
           >
+            {isFullScreen && (
+              <button
+                onClick={toggleFullScreen}
+                style={{
+                  position: 'fixed',
+                  top: 24,
+                  right: 24,
+                  zIndex: 100,
+                  background: '#fff',
+                  border: '1px solid #ddd',
+                  borderRadius: '9999px',
+                  padding: '0.5rem 1.25rem',
+                  fontWeight: 600,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                  cursor: 'pointer',
+                }}
+              >
+                Exit Full Screen
+              </button>
+            )}
             <ResumePreview
               resumeData={resumeData}
               template={selectedTemplate}
