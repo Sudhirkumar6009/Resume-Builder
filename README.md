@@ -5,7 +5,7 @@ Where we focuses to distribution client and server directory separation for bett
 
 
 ## Project Structure
-./server consists proper backend infrastructure (built with MongoDB Atllas, Node + express.js)
+`./server` consists proper backend infrastructure (built with MongoDB Atllas, Node + express.js)
 ./client consists frontend structure (built with React.js Tech)
 
 ---
